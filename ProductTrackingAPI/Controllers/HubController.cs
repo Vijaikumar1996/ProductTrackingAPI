@@ -1,8 +1,10 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductTrackingAPI.DTOs;
 using ProductTrackingAPI.Interface;
+using ProductTrackingAPI.Services;
+using System.Security.Claims;
+using static ProductTrackingAPI.DTOs.HubTruckDTO;
 
 namespace ProductTrackingAPI.Controllers;
 
@@ -25,6 +27,16 @@ public class HubController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpGet("trucks")]
+    public async Task<IActionResult> GetHubTrucks()
+    {
+        var result =
+            await _hubService.GetHubTrucksAsync();
+
+        return Ok(result);
+    }
+
 
     [HttpGet("saleorder/{saleOrderId}")]
     public async Task<IActionResult> GetSaleOrder(
@@ -53,6 +65,23 @@ public class HubController : ControllerBase
         return Ok(result);
     }
 
+    [HttpPost("truck/scan")]
+    public async Task<IActionResult> ScanHubHu(
+       [FromBody] HubTruckScanRequest request)
+    {
+        var userId = long.Parse(
+            User.FindFirstValue(
+                ClaimTypes.NameIdentifier)!);
+
+        var result =
+            await _hubService.ScanHubHuAsync(
+                request,
+                userId);
+
+        return Ok(result);
+    }
+
+
     [HttpPost("complete/{saleOrderId}")]
     public async Task<IActionResult> CompleteReceiving(
     long saleOrderId)
@@ -65,5 +94,26 @@ public class HubController : ControllerBase
             saleOrderId, userId);
 
         return Ok("Receiving completed");
+    }
+
+
+    [HttpPost("complete")]
+    public async Task<IActionResult> CompleteHubReceive(
+        [FromBody] CompleteHubTruckRequest request)
+    {
+
+        var userId = long.Parse(
+         User.FindFirstValue(
+             ClaimTypes.NameIdentifier)!);
+
+        await _hubService.CompleteHubReceiveAsync(
+            request,
+            userId);
+
+        return Ok(new
+        {
+            message =
+                "Hub receiving completed successfully."
+        });
     }
 }

@@ -24,4 +24,7 @@ public class SaleOrderTransportDetail
 
     [Column("created_at")]
     public DateTime CreatedAt { get; set; }
+
+    // Navigation property
+    public SaleOrder SaleOrder { get; set; } = null!;
 }

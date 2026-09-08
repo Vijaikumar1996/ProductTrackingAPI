@@ -234,8 +234,8 @@ public class SaleOrderService : ISaleOrderService
     public async Task<List<SaleOrderListDto>>
 GetOrdersAsync(
     string? saleOrderNo,
-    DateTime? fromDate,
-    DateTime? toDate,
+    DateOnly? fromDate,
+    DateOnly? toDate,
     string? status)
     {
         var query =
@@ -266,15 +266,15 @@ GetOrdersAsync(
         if (fromDate.HasValue)
         {
             query = query.Where(x =>
-                x.SaleOrder.ShipmentDate.Date >=
-                fromDate.Value.Date);
+                x.SaleOrder.ShipmentDate >=
+                fromDate.Value);
         }
 
         if (toDate.HasValue)
         {
             query = query.Where(x =>
-                x.SaleOrder.ShipmentDate.Date <=
-                toDate.Value.Date);
+                x.SaleOrder.ShipmentDate <=
+                toDate.Value);
         }
 
         return await query

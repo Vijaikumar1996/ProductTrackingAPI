@@ -42,8 +42,8 @@ public class SaleOrderController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetOrders(
      [FromQuery] string? saleOrderNo,
-     [FromQuery] DateTime? fromDate,
-     [FromQuery] DateTime? toDate,
+     [FromQuery] DateOnly? fromDate,
+     [FromQuery] DateOnly? toDate,
      [FromQuery] string? status)
     {
         var orders = await _service.GetOrdersAsync(

@@ -6,7 +6,7 @@ public class SaleOrderDetailDto
 
     public string SaleOrderNo { get; set; } = string.Empty;
 
-    public DateTime ShipmentDate { get; set; }
+    public DateOnly ShipmentDate { get; set; }
 
     public string Status { get; set; } = string.Empty;
 

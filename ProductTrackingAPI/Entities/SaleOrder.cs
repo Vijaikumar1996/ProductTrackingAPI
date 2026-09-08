@@ -14,7 +14,7 @@ public class SaleOrder
     public string SaleOrderNo { get; set; } = string.Empty;
 
     [Column("shipment_date", TypeName = "date")]
-    public DateTime ShipmentDate { get; set; }
+    public DateOnly ShipmentDate { get; set; }
 
     [Column("file_name")]
     public string? FileName { get; set; }

@@ -4,7 +4,7 @@
     {
         public string SaleOrderNo { get; set; } = string.Empty;
 
-        public DateTime ShipmentDate { get; set; }
+        public DateOnly ShipmentDate { get; set; }
 
         public string InboundVehicleNumber { get; set; } = string.Empty;
 

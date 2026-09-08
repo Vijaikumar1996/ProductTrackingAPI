@@ -10,8 +10,8 @@ namespace ProductTrackingAPI.Interface
 
         Task<List<SaleOrderListDto>> GetOrdersAsync(
     string? saleOrderNo,
-    DateTime? fromDate,
-    DateTime? toDate,
+    DateOnly? fromDate,
+    DateOnly? toDate,
     string? status);
         Task<SaleOrderDetailDto?>
  GetOrderDetailAsync(long saleOrderId);

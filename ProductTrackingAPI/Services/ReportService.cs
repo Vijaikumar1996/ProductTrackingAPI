@@ -80,26 +80,17 @@ namespace ProductTrackingAPI.Services
 
             // From Date Filter
             if (request.FromDate.HasValue)
-            {
-                var fromDate =
-                    DateTime.SpecifyKind(
-                        request.FromDate.Value.Date,
-                        DateTimeKind.Utc);
+            {              
 
                 query = query.Where(x =>
-                    x.ShipmentDate >= fromDate);
+                    x.ShipmentDate >= request.FromDate);
             }
 
             // To Date Filter
             if (request.ToDate.HasValue)
-            {
-                var toDate =
-                    DateTime.SpecifyKind(
-                        request.ToDate.Value.Date.AddDays(1),
-                        DateTimeKind.Utc);
-
+            {              
                 query = query.Where(x =>
-                    x.ShipmentDate < toDate);
+                    x.ShipmentDate < request.ToDate);
             }
 
             // Mismatch Only Filter

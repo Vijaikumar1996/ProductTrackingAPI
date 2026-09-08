@@ -42,7 +42,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<ExceptionLog> ExceptionLogs { get; set; }
 
     protected override void OnModelCreating(
-     ModelBuilder modelBuilder)
+    ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
@@ -74,8 +74,15 @@ public class ApplicationDbContext : DbContext
             .HasForeignKey(st => st.HuItemId);
 
         modelBuilder.Entity<HuItem>()
-    .HasOne(h => h.SaleOrder)
-    .WithMany()
-    .HasForeignKey(h => h.SaleOrderId);
+            .HasOne(h => h.SaleOrder)
+            .WithMany()
+            .HasForeignKey(h => h.SaleOrderId);
+
+        // Sale Order -> Transport Detail
+        modelBuilder.Entity<SaleOrderTransportDetail>()
+            .HasOne(x => x.SaleOrder)
+            .WithMany()
+            .HasForeignKey(x => x.SaleOrderId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
